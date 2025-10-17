@@ -5,8 +5,8 @@ from sklearn.model_selection import train_test_split
 class Data:
     def __init__(self, data: pd.DataFrame):
         self.df = data
-        self.features = self.df.drop("class")
-        self.classes = self.df("class")
+        self.features = self.df.drop("Mine_Type")
+        self.classes = self.df("Mine_Type")
 
         self.normalSplit()
 
