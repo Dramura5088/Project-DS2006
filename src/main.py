@@ -1,5 +1,7 @@
 import pandas as pd
 from data import Data
+import mainMenuHelpFunctions as mMHF
+from classifiers import Classifier_kNN, Classifier_Decision_Tree, Classifier
 
 
 """
@@ -26,46 +28,54 @@ Requirement:
 """
 
 
-def yesOrNo(statement: str) -> bool:
-    i = input(statement + "(y/n):")
-    if i.lower() == "y":
-        return True
-    else:
-        return False
-def loadFile() -> pd.DataFrame:
-    fileNotFound: bool = False
-    doILoadBaseFile: bool = yesOrNo("Do you want to load the standard Dataset?")
-
-    # Load base file
-    df:pd.DataFrame
-    if doILoadBaseFile == True:
-        try:
-            df = pd.read_csv("Mine_Dataset.csv")
-            return df
-        except:
-            fileNotFound = True
-            print("Base file not found. Switching to user selection.")
-    # Let the user load a file
-    elif fileNotFound or doILoadBaseFile == False:
-        while True: # While loop to get correct input.
-            try:
-                filename = input("Type Dataset filename to load:")
-                df = pd.read_csv(filename)
-                return df
-            except:
-                print("File not found or data was innacurate.")
-
 
 def main():
-    df = loadFile()
-    #print(df.info())
-    data: Data = Data(df)
+    df:pd.DataFrame
+    data:Data
+    model:Classifier
+
+    userChoice:int 
+    
+    mainStatement  = "Project DS2006\n"
+    mainStatement += "By Philip H & Ronni E\n"
+    mainStatement += "Choose option:\n"
+    mainStatement += "(0) Exit\n"
+    mainStatement += "(1) Load Data\n"
+    mainStatement += "(2) Load Model\n"
+
+    # Main Menu
+    while True:
+        # Gets user input
+        userChoice = mMHF.getIntInput(statement=mainStatement)
+
+        match userChoice:
+            case 0:
+                quit()
+            case 1:
+                # Load Data
+                df = mMHF.loadFile()
+                data = Data(df)
+                pass
+            case 2:
+                # Train model
+                pass
+            case _:
+                print("Input Error\n")
+
+
+
+
+
+    #df:pd.DataFrame = mainMenu.loadFile()
+    #data = Data(data=df)
     
 
+
+
+
     # Ronni from here
-    from classifiers import Classifier_kNN, Classifier_Decision_Tree, Classifier
     
-    model:Classifier = None
+    #model:Classifier = None
     while True:
         try: 
             userChoice = int(input("Choose between the two classification models: kNN(1) or Decision Tree(2)").strip())
