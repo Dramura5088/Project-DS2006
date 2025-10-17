@@ -9,11 +9,13 @@ from data import Data
 
 class Classifier(ABC):
     def __init__(self, data: Data):
-        super().__init__(self, data)
+        super().__init__()
         self.data = data
 
     @abstractmethod
     def evaluate(self):
+        pass
+    def predict_new(self):
         pass
 
 
@@ -32,10 +34,14 @@ class Classifier_kNN(Classifier):
     def evaluate(self):
         print("Accuracy:", accuracy_score(self.data.classes_test, self.predictions))
         print(classification_report(self.data.classes_test, self.predictions))
+    
+    def predict_new(self, new_data):
+        prediction = self.knn.predict(new_data)
+        return prediction
 
 
 class Classifier_Decision_Tree(Classifier):
-    def _init_(self, data: Data):
+    def __init__(self, data: Data):
         super().__init__(data=data)
         self.dt = DecisionTreeClassifier()
         self.dt.fit(self.data.features_train, self.data.classes_train)
@@ -46,4 +52,12 @@ class Classifier_Decision_Tree(Classifier):
     def evaluate(self):
         print("Accuracy:", accuracy_score(self.data.classes_test, self.predictions))
         print(classification_report(self.data.classes_test, self.predictions))
+    
+    def predict_new(self, new_data):
+        prediction = self.dt.predict(new_data)
+        return prediction
+
+    
+      
+        
 
