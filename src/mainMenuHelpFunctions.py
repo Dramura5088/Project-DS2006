@@ -1,16 +1,25 @@
 import pandas as pd
 
+def clamp(n, min_value, max_value):
+    return max(min_value, min(n, max_value))
+
 def getIntInput(statement:str) -> int:
     i:int
     while True:
         try:
             i = int(input(statement))
-            break
+            return i
         except:
             print("Invalid input.")
 
-
-    return i
+def getFloatInput(statement:str) -> float:
+    f:float
+    while True:
+        try:
+            f = int(input(statement))
+            return f
+        except:
+            print("Invalid input.")
 
 def yesOrNo(statement: str) -> bool:
     i = input(statement + "(y/n):")
@@ -36,12 +45,17 @@ def loadBaseFile() -> pd.DataFrame:
         return loadFile()
 
 def loadFile() -> pd.DataFrame:
-        while True: # While loop to get correct input.
+        while True:
             try:
-                filename = input("Type Dataset filename to load:")
-                df = pd.read_csv(filename)
+                df = pd.read_csv(getFilename()+".csv")
                 return df
             except:
-                print("File not found or data was innacurate.")
+                print("Couldn't load file.")
 
-
+def getFilename() -> str:
+    while True:
+        try:
+            filename = input("Enter your desired filename: ").strip()
+            return filename
+        except:
+            print("Invalid filename")

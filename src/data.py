@@ -66,7 +66,7 @@ class Data:
         else:
             return True
         
-def createManualData(self, Voltage:float, High:float, Soil_Type:float) -> pd.DataFrame:
+def createManualData(Voltage:float, High:float, Soil_Type:float) -> pd.DataFrame:
     """
     Values input are to be based on the original values according to the dataset.
 

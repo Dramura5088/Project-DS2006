@@ -5,7 +5,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.tree import DecisionTreeClassifier
 from data import Data
-
+import pandas as pd
+import numpy as np
 
 class Classifier(ABC):
     def __init__(self, data: Data):
@@ -24,7 +25,7 @@ class Classifier(ABC):
             file.write(write_string)
     
     @abstractmethod
-    def predict_new(self):
+    def predict(self):
         pass
 
 
@@ -39,7 +40,7 @@ class Classifier_kNN(Classifier):
         self.predictions = self.knn.predict(self.data.features_test)
 
     
-    def predict_new(self, new_data):
+    def predict(self, new_data) -> np.ndarray:
         prediction = self.knn.predict(new_data)
         return prediction
 
@@ -52,7 +53,7 @@ class Classifier_Decision_Tree(Classifier):
 
         self.predictions = self.dt.predict(self.data.features_test)
 
-    def predict_new(self, new_data):
+    def predict(self, new_data) -> np.ndarray:
         prediction = self.dt.predict(new_data)
         return prediction
 

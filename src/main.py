@@ -1,5 +1,5 @@
 import pandas as pd
-from data import Data
+from data import Data, createManualData
 import mainMenuHelpFunctions as mMHF
 from classifiers import Classifier_kNN, Classifier_Decision_Tree, Classifier
 
@@ -32,6 +32,8 @@ Requirement:
 def main():
     df:pd.DataFrame  = None
     dfTesting:pd.DataFrame = None
+    dfCustom:pd.DataFrame = None
+
     data:Data        = None
     model:Classifier = None
 
@@ -45,6 +47,8 @@ def main():
     mainStatement += "(0) Exit\n"
     mainStatement += "(1) Load Data\n"
     mainStatement += "(2) Load Model\n"
+    mainStatement += "(3) Input Custom Example\n"
+    mainStatement += "Choice:"
 
     # Main Menu
     while True:
@@ -75,7 +79,7 @@ def main():
                 
             case 2: 
                 # Train model
-                if data is None: # Pass if data isnt loaded yet
+                if data is None: # Continue if data isnt loaded yet
                     input("Data needs to be loaded first.")
                     continue
                 
@@ -97,14 +101,38 @@ def main():
                         continue
     
                 if mMHF.yesOrNo("Do you want to save the evaluation?"):
-                    while True:
-                        try:
-                            filename = input("Enter your desired filename: ").strip()+".txt"
+                    model.saveEvaluation(filename=mMHF.getFilename()+".txt")
+
+            case 3:
+                dfCustom = None # RESET
+
+                if model is None: # Continue if model isnt trained yet
+                    input("Model needs to be trained first.")
+                    continue
+
+                if mMHF.yesOrNo("Do you want to load the custom data from a file?"):
+                    # Load a file
+                    dfCustom = mMHF.loadFile()
+                else:
+                    # Load a custom row manually
+
+                    dfCustom = pd.DataFrame() # Create empty dataframe
+                    for rows in range(0,mMHF.clamp(mMHF.getIntInput("How many rows do you want to add?(Max 10):"), 0, 10)):
+                        voltage  = mMHF.clamp(mMHF.getFloatInput("What's the voltage value of FLC sensor due to magnetic distortion? (Min: 0V, Max: 10.6V)"),0.0,10.6)
+                        high     = mMHF.clamp(mMHF.getFloatInput("What's the height of the sensor from the ground? (Min: 0cm, Max: 20cm)"),0.0,20.0)
+                        soilType = mMHF.clamp(mMHF.getIntInput("What's the soil type depending on the moisture condition? (1-6)"),1,6)
+
+                        dfCustom = pd.concat([dfCustom ,createManualData(Voltage=voltage, High=high, Soil_Type=soilType)])
                 
-                            model.saveEvaluation(filename=filename)
-                            break
-                        except:
-                            print("Invalid filename")
+                prediction = model.predict(dfCustom)
+                print("DataFrame:\n", dfCustom)
+                print("Prediction:\n", prediction)
+                        
+                            
+                    
+
+
+
             case _:
                 print("Input Error\n")
 
