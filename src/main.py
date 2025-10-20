@@ -35,6 +35,7 @@ def main():
     model:Classifier = None
 
     userChoice:int 
+    modelChoice: int
     
     mainStatement  = "Project DS2006\n"
     mainStatement += "By Philip H & Ronni E\n"
@@ -60,6 +61,8 @@ def main():
                     print("Data Loaded:") # Tells the user, clause in 3.a
                     data.evaluate()
                 except:
+                    df   = None
+                    data = None
                     print("Not able to load data. An unexpected error has occured. Is .csv formatting correct?")
                 
             case 2: 
@@ -69,10 +72,39 @@ def main():
                     continue
                 
                 # Load and train model
+
+                modelChoice = int(input("\nSelect a Model:\n \nkNN Model(1)\n \nDecision Tree(2)\n"))
                 
+                match modelChoice:
+                    case 1:
+                        model = Classifier_kNN(data, k=3)
+                        print("User Selected: kNN - model ")
+                        model.evaluate()
+                    case 2:
+                        model = Classifier_Decision_Tree(data)
+                        print("User selected: Decision Tree model")
+                        model.evaluate()
+                    case _:
+                        print("Wrong input.")
+                        continue
+    
+                if mMHF.yesOrNo("Do you want to save the evaluation?"):
+                    
+                    
+                    
+                    model.saveEvaluation("Test.txt")
+                        
                 
             case _:
                 print("Input Error\n")
 
 if __name__ == "__main__":
     main()
+
+
+
+
+
+
+
+

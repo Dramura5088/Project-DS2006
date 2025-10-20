@@ -1,6 +1,5 @@
 import pandas as pd
 
-
 def getIntInput(statement:str) -> int:
     i:int
     while True:
@@ -33,7 +32,7 @@ def loadFile() -> pd.DataFrame:
             fileNotFound = True
             print("Base file not found. Switching to user selection.")
     # Let the user load a file
-    elif fileNotFound == True or doILoadBaseFile == False:
+    if fileNotFound == True or doILoadBaseFile == False:
         while True: # While loop to get correct input.
             try:
                 filename = input("Type Dataset filename to load:")
@@ -41,3 +40,4 @@ def loadFile() -> pd.DataFrame:
                 return df
             except:
                 print("File not found or data was innacurate.")
+
