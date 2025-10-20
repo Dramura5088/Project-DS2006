@@ -31,11 +31,13 @@ Requirement:
 
 def main():
     df:pd.DataFrame  = None
+    dfTesting:pd.DataFrame = None
     data:Data        = None
     model:Classifier = None
 
     userChoice:int 
     modelChoice: int
+    datasetChoice: int
     
     mainStatement  = "Project DS2006\n"
     mainStatement += "By Philip H & Ronni E\n"
@@ -54,9 +56,15 @@ def main():
                 quit()
             case 1:
                 # Load Data
+        
                 try:
-                    df = mMHF.loadFile()
-                    data = Data(df)
+                    df = mMHF.loadBaseFile()
+                  
+                    if mMHF.yesOrNo("Do you want to load a file for testing?"):
+                        dfTesting = mMHF.loadFile()
+
+                    data = Data(df, dfTesting)
+
 
                     print("Data Loaded:") # Tells the user, clause in 3.a
                     data.evaluate()
@@ -89,12 +97,14 @@ def main():
                         continue
     
                 if mMHF.yesOrNo("Do you want to save the evaluation?"):
-                    
-                    
-                    
-                    model.saveEvaluation("Test.txt")
-                        
+                    while True:
+                        try:
+                            filename = input("Enter your desired filename: ").strip()+".txt"
                 
+                            model.saveEvaluation(filename=filename)
+                            break
+                        except:
+                            print("Invalid filename")
             case _:
                 print("Input Error\n")
 
