@@ -13,6 +13,7 @@ class Data:
         self.features = self.df.drop('Mine_Type', axis=1)
         self.classes = self.df['Mine_Type']
         
+        
         if preDeterminedTestingData is None:
             # Train test split
             stratify = None # Set stratify
@@ -64,3 +65,46 @@ class Data:
             return False
         else:
             return True
+        
+def createManualData(self, Voltage:float, High:float, Soil_Type:float) -> pd.DataFrame:
+    """
+    Values input are to be based on the original values according to the dataset.
+
+    Voltage:
+        Output voltage value of FLC sensor due to magnetic distortion
+        Between 0V - 10.6V
+    
+    High:
+        The height of the sensor from the ground
+        Between 0cm - 20cm
+        
+    Soil Type:
+        6 different soil types depending on the moisture condition.
+        1(0.0) Dry and Sandy
+        2(0.2) Dry and Humus
+        3(0.4) Dry and Limy
+        4(0.6) Humid and Sandy
+        5(0.8) Humid and Humus
+        6(1.0) Humid and Limy
+    """
+    # Mean
+    Voltage = (Voltage - 0) / (10.6 - 0)
+    High    = (High - 0) / (20 - 0)
+
+    # Switch
+    match Soil_Type:
+        case 1:
+            Soil_Type = 0.0
+        case 2:
+            Soil_Type = 0.2
+        case 3:
+            Soil_Type = 0.4
+        case 4:
+            Soil_Type = 0.6
+        case 5:
+            Soil_Type = 0.8
+        case 6:
+            Soil_Type = 1.0
+
+    df = pd.DataFrame([Voltage, High, Soil_Type])
+    return df
