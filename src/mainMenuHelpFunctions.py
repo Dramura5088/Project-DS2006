@@ -19,7 +19,7 @@ def yesOrNo(statement: str) -> bool:
     else:
         return False
 
-def loadFile() -> pd.DataFrame:
+def loadBaseFile() -> pd.DataFrame:
     fileNotFound: bool = False
     doILoadBaseFile: bool = yesOrNo("Do you want to load the standard Dataset?")
 
@@ -33,6 +33,9 @@ def loadFile() -> pd.DataFrame:
             print("Base file not found. Switching to user selection.")
     # Let the user load a file
     if fileNotFound == True or doILoadBaseFile == False:
+        return loadFile()
+
+def loadFile() -> pd.DataFrame:
         while True: # While loop to get correct input.
             try:
                 filename = input("Type Dataset filename to load:")
@@ -40,4 +43,5 @@ def loadFile() -> pd.DataFrame:
                 return df
             except:
                 print("File not found or data was innacurate.")
+
 
