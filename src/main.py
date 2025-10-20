@@ -30,9 +30,9 @@ Requirement:
 
 
 def main():
-    df:pd.DataFrame
-    data:Data
-    model:Classifier
+    df:pd.DataFrame  = None
+    data:Data        = None
+    model:Classifier = None
 
     userChoice:int 
     
@@ -53,53 +53,26 @@ def main():
                 quit()
             case 1:
                 # Load Data
-                df = mMHF.loadFile()
-                data = Data(df)
-                pass
-            case 2:
+                try:
+                    df = mMHF.loadFile()
+                    data = Data(df)
+
+                    print("Data Loaded:") # Tells the user, clause in 3.a
+                    data.evaluate()
+                except:
+                    print("Not able to load data. An unexpected error has occured. Is .csv formatting correct?")
+                
+            case 2: 
                 # Train model
-                pass
+                if data is None: # Pass if data isnt loaded yet
+                    input("Data needs to be loaded first.")
+                    continue
+                
+                # Load and train model
+                
+                
             case _:
                 print("Input Error\n")
-
-
-
-
-
-    #df:pd.DataFrame = mainMenu.loadFile()
-    #data = Data(data=df)
-    
-
-
-
-
-    # Ronni from here
-    
-    #model:Classifier = None
-    while True:
-        try: 
-            userChoice = int(input("Choose between the two classification models: kNN(1) or Decision Tree(2)").strip())
-            match userChoice:
-                case 1:
-                    model = Classifier_kNN(data)
-                    break
-                case 2:
-                    model = Classifier_Decision_Tree(data)
-                    break
-                case _:
-                    print("Invalid Input")   
-        except:
-             print("Invalid input")
-    model.evaluate()
-   
-        
-            
-        
-       
-        
-        
-    
-
 
 if __name__ == "__main__":
     main()

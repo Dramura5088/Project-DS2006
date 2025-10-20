@@ -15,10 +15,11 @@ def getIntInput(statement:str) -> int:
 
 def yesOrNo(statement: str) -> bool:
     i = input(statement + "(y/n):")
-    if i.lower() == "y":
+    if i.lower().strip() == "y":
         return True
     else:
         return False
+
 def loadFile() -> pd.DataFrame:
     fileNotFound: bool = False
     doILoadBaseFile: bool = yesOrNo("Do you want to load the standard Dataset?")
