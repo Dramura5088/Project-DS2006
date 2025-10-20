@@ -44,9 +44,9 @@ class Data:
         )
     
     def evaluate(self):
-        print("Head:\n" + self.df.head(10)) # Loads first 10 lines (requirement in 3.a)
-        print("Describe:\n" + self.df.info())
-        print("Shape:\n" + self.df.shape)
+        print(f"Head:\n{self.df.head(10)}" ) # Loads first 10 lines (requirement in 3.a)
+        print(f"Describe:\n{self.df.info()}")
+        print(f"Shape:\n{self.df.shape}")
 
     def dataLeakageCheck(self, trainingData:pd.DataFrame, testData:pd.DataFrame) -> bool:
         """
