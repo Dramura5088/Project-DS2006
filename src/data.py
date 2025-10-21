@@ -117,7 +117,7 @@ class Data:
         # Makes a new dataFrame with bools for overlaps.
         checkdf: pd.DataFrame = testData.isin(trainingData)
 
-         # Makes a mask to get only rows with all True.
+        # Makes a mask to get only rows with all True.
         mask = (
             (checkdf["Voltage"] == True)
             & (checkdf["High"] == True)
