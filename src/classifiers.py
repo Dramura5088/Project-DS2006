@@ -8,6 +8,7 @@ from data import Data
 import pandas as pd
 import numpy as np
 
+
 class Classifier(ABC):
     def __init__(self, data: Data):
         super().__init__()
@@ -21,9 +22,11 @@ class Classifier(ABC):
     def saveEvaluation(self, filename):
         with open(filename, "w") as file:
             write_string = f"Accuracy: {accuracy_score(self.data.classes_test, self.predictions)}\n"
-            write_string += classification_report(self.data.classes_test, self.predictions)
+            write_string += classification_report(
+                self.data.classes_test, self.predictions
+            )
             file.write(write_string)
-    
+
     @abstractmethod
     def predict(self):
         pass
@@ -31,7 +34,7 @@ class Classifier(ABC):
 
 class Classifier_kNN(Classifier):
 
-    def __init__(self, data: Data, k:int = 1):
+    def __init__(self, data: Data, k: int = 1):
         super().__init__(data=data)
 
         self.k = k
@@ -39,7 +42,6 @@ class Classifier_kNN(Classifier):
         self.knn.fit(self.data.features_train, self.data.classes_train)
         self.predictions = self.knn.predict(self.data.features_test)
 
-    
     def predict(self, new_data) -> np.ndarray:
         prediction = self.knn.predict(new_data)
         return prediction
@@ -56,9 +58,3 @@ class Classifier_Decision_Tree(Classifier):
     def predict(self, new_data) -> np.ndarray:
         prediction = self.dt.predict(new_data)
         return prediction
-
-
-    
-      
-        
-

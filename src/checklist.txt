@@ -1,0 +1,63 @@
+Requirement:
+1. Choose data correctly. (DONE)
+    Our data has 4 features and is for classification: https://archive.ics.uci.edu/dataset/763/land+mines-1
+
+2. Make sure no other team is using it. (DONE)
+    I checked so no other team was using it at the time. Then I posted it on the BB page to claim it.
+
+3. Develop the Application (DONE)
+    a. Load the Dataset
+        data.py manages loading and checking the files.
+            
+            The first top 10 rows.
+                (DONE) in the Data class's evaluation method
+
+            Some basic statistics.
+                (DONE) in the Data class's evaluation method.
+
+    b. Train a classification model with the current version of the dataset. (DONE)
+        classifiers.py manages classifying and checking the files.
+             
+             The software must allow the user to select between at least 2 
+             types of supervised machine learning algorithms to train the models.
+                (DONE) 2 model options have been made in classifiers.py. The options are kNN and DT. 
+                The user can choose between them.
+
+             If no dataset was loaded, the software must ask the user to load a dataset first.
+                (DONE) This is done in main.
+
+
+    c. Evaluate and save the performance of the classification model. (DONE)
+        
+            The software must enable the user to choose whether or not they want to load a specific file for evaluation.
+                (DONE) There is a yesOrNo asking the user if they want to load a testing file after they have provided a base file.
+                If they say yes, the base file (ours or self provided) will be used as training data. The new file they provide will
+                be used as testing data. 
+
+            In case the user does not provide the additional file, it performs the experiments using a suitable data partitioning strategy.
+                (DONE) If the user says no to the yesOrNo after loading base file then it will simply use the train_test_split from 
+                the scikit learn library.
+
+            After performing the experiments it will report suitable metrics for the user which will allow them to 
+            evaluate the performance of the classification model.
+                (DONE) The abstract class Classifier has a method called evaluate that prints accuracy and a classification report.
+
+            After showing the metrics it will ask the user whether or not they want to save the results to a file.
+            If the user says yes, the software asks for the file name and saves the results information there. 
+                (DONE)  The abstract class Classifier has a method called saveEvaluation that does this. 
+                Its called in main after a simple yes or no and a chosen filename.
+
+
+    d. Simulate a real environment. (DONE)
+        If the user did not train any models yet, the software must tell the user that first they need to 
+        train a classification model.
+
+            If the user did not train any models yet, the software must tell the user that first they need to 
+            train a classification model.
+                (DONE) Simply check if our model variable in main is None and continue if it is just before you start
+                modifying it.
+            
+            If the user trained methods, then it asks for the user to input information related to the attributes 
+            used for the problem and uses that information to ask the classification model for the correct response.
+                (DONE) It asks for the attributes of a row with our 3 features then we use a function in the data.py 
+                file to format it properly. We then simply print the prediction.
