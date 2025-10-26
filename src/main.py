@@ -14,7 +14,7 @@ def main():
 
     userChoice: int
     modelChoice: int
-    datasetChoice: int
+    
 
     mainStatement = "Project DS2006\n"
     mainStatement += "By Philip H & Ronni E\n"
