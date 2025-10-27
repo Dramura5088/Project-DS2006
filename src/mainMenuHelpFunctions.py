@@ -40,7 +40,7 @@ def getFloatInput(statement: str) -> float:
     f: float
     while True:
         try:
-            f = int(input(statement).strip())
+            f = float(input(statement).strip())
             return f
         except:
             print("Invalid input.")

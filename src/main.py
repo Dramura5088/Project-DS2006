@@ -15,7 +15,6 @@ def main():
     userChoice: int
     modelChoice: int
     
-
     mainStatement = "Project DS2006\n"
     mainStatement += "By Philip H & Ronni E\n"
     mainStatement += "Choose option:\n"
@@ -104,9 +103,9 @@ def main():
                         0,
                         mMHF.clamp(
                             mMHF.getIntInput(
-                                "How many rows do you want to add?(Max 10):"
+                                "How many rows do you want to add?(Min: 1, Max: 10):"
                             ),
-                            0,
+                            1,
                             10,
                         ),
                     ):
