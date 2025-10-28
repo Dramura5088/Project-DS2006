@@ -1,11 +1,9 @@
 from abc import ABC, abstractmethod
-from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.tree import DecisionTreeClassifier
 from data import Data
-import pandas as pd
 import numpy as np
 
 # Abstract base class for all classifiers
